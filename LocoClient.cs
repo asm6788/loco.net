@@ -33,7 +33,7 @@ namespace LocoDotnet
             body.Add("device_uuid", account.deviceUUID);
             body.Add("os_version", account.osVersion);
             body.Add("device_name", account.deviceName);
-            if (String.IsNullOrEmpty(passcode))
+            if (!String.IsNullOrEmpty(passcode))
                 body.Add("passcode", passcode);
             body.Add("permanent", account.permanent ? "true" : "false");
             body.Add("forced", account.permanent ? "true" : "false");
@@ -43,6 +43,9 @@ namespace LocoDotnet
         /// <summary>
         /// LOCO 로그인
         /// </summary>
+        ///  /// <remarks>
+        /// 로그인 1번째 단계
+        /// </remarks>
         public async Task<string> Login(Account account)
         {
             HttpClient client = GetHttpClient(account);
@@ -56,7 +59,7 @@ namespace LocoDotnet
         /// LOCO 로그인-인증번호입력
         /// </summary>
         /// <remarks>
-        /// 직접호출금지
+        /// 로그인 2번째 단계
         /// </remarks>
         public async Task<string> RequestPasscode(Account account)
         {
