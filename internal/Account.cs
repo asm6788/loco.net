@@ -12,37 +12,36 @@ namespace LocoDotnet.Internal
         public readonly string osVersion;
         public readonly bool permanent;
         public readonly bool forced;
-        public readonly bool autowithlock;
-        public readonly bool autologin;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="permanent">°³ÀÎPCµî·Ï ¿©ºÎ</param>
-        /// <param name="forced">°­Á¦·Î±×ÀÎ(´Ù¸¥ÄÄÇ»ÅÍ ·Î±×¾Æ¿ô)</param>
-        /// <param name="locked">Àá±Ý»óÅÂ¿¡¼­ ÀÚµ¿·Î±×ÀÎ</param>
+        /// <param name="permanent">ï¿½ï¿½ï¿½ï¿½PCï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</param>
+        /// <param name="forced">ï¿½ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½(ï¿½Ù¸ï¿½ï¿½ï¿½Ç»ï¿½ï¿½ ï¿½Î±×¾Æ¿ï¿½)</param>
+        /// <param name="locked">ï¿½ï¿½Ý»ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½Î±ï¿½ï¿½ï¿½</param>
         public Account(string email, string password, string deviceUUID, string deviceName = "PC", string osVersion = "10.0", bool permanent = false, bool forced = false, bool locked = false)
         {
-            this.email = email;
-            this.password = password;
-
             if (String.IsNullOrEmpty(email) || String.IsNullOrEmpty(password))
             {
                 throw new ArgumentNullException();
             }
-
-            if (!String.IsNullOrEmpty(deviceUUID))
-            {
-                this.deviceUUID = Convert.ToBase64String(Encoding.UTF8.GetBytes(deviceUUID));
-            }
             else
+            {
+                this.email = email;
+                this.password = password;
+            }
+
+            if (String.IsNullOrEmpty(deviceUUID))
             {
                 this.deviceUUID = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
             }
+            else
+            {
+                this.deviceUUID = Convert.ToBase64String(Encoding.UTF8.GetBytes(deviceUUID));
+            }
+
             this.deviceName = deviceName;
             this.osVersion = osVersion;
-            this.autologin = locked ? true : false;
-            this.autowithlock = locked ? true : false;
             this.permanent = permanent;
             this.forced = forced;
         }
