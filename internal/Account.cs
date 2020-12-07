@@ -1,95 +1,44 @@
 using System;
 using System.Text;
 
-namespace LocoDotnet.Internal {
-    public struct Account {
-        private string email;
-        private string password;
-        private string deviceUUID;
-        private string deviceName;
-        private string osVersion;
-        private bool permanent;
-        private bool forced;
+namespace LocoDotnet.Internal
+{
+    public struct Account
+    {
+        public readonly string email;
+        public readonly string password;
+        public readonly string deviceUUID;
+        public readonly string deviceName;
+        public readonly string osVersion;
+        public readonly bool permanent;
+        public readonly bool forced;
+        public readonly bool autowithlock;
+        public readonly bool autologin;
 
-        public Account(string email, string password, string deviceUUID, string deviceName, string osVersion, bool? permanent, bool? forced) {
+        public Account(string email, string password, string deviceUUID, string deviceName = "PC", string osVersion = "10.0", bool permanent = false, bool forced = false, bool locked = false)
+        {
             this.email = email;
             this.password = password;
 
-            if(String.IsNullOrEmpty(email) || String.IsNullOrEmpty(password)) {
+            if (String.IsNullOrEmpty(email) || String.IsNullOrEmpty(password))
+            {
                 throw new ArgumentNullException();
             }
 
-            if(!String.IsNullOrEmpty(deviceUUID)) {
+            if (!String.IsNullOrEmpty(deviceUUID))
+            {
                 this.deviceUUID = Convert.ToBase64String(Encoding.UTF8.GetBytes(deviceUUID));
-            } else {
+            }
+            else
+            {
                 this.deviceUUID = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
             }
-
-            if(!String.IsNullOrEmpty(deviceName)) {
-                this.deviceName = deviceName;
-            } else {
-                this.deviceName = "PC";
-            }
-
-            if(!String.IsNullOrEmpty(osVersion)) {
-                this.osVersion = osVersion;
-            } else {
-                this.osVersion = "10.0";
-            }
-
-            if(permanent.HasValue) {
-                this.permanent = permanent.Value;
-            } else {
-                this.permanent = false;
-            }
-
-            if(forced.HasValue) {
-                this.forced = forced.Value;
-            } else {
-                this.forced = false;
-            }
-        }
-
-        public string Email {
-            get {
-                return email;
-            }
-        }
-
-        public string Password {
-            get {
-                return password;
-            }
-        }
-
-        public string DeviceUUID {
-            get {
-                return deviceUUID;
-            }
-        }
-
-        public string DeviceName {
-            get {
-                return deviceName;
-            }
-        }
-
-        public string OsVersion {
-            get {
-                return osVersion;
-            }
-        }
-
-        public bool Permanent {
-            get {
-                return permanent;
-            }
-        }
-
-        public bool Forced {
-            get {
-                return forced;
-            }
+            this.deviceName = deviceName;
+            this.osVersion = osVersion;
+            this.autologin = locked ? true : false;
+            this.autowithlock = locked ? true : false;
+            this.permanent = permanent;
+            this.forced = forced;
         }
     }
 }
