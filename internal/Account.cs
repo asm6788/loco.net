@@ -16,9 +16,9 @@ namespace LocoDotnet.Internal
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="permanent">����PC��� ����</param>
-        /// <param name="forced">����α���(�ٸ���ǻ�� �α׾ƿ�)</param>
-        /// <param name="locked">��ݻ��¿��� �ڵ��α���</param>
+        /// <param name="permanent">개인PC등록 여부</param>
+        /// <param name="forced">강제로그인(다른컴퓨터 로그아웃)</param>
+        /// <param name="locked">잠금상태에서 자동로그인</param>
         public Account(string email, string password, string deviceUUID, string deviceName = "PC", string osVersion = "10.0", bool permanent = false, bool forced = false, bool locked = false)
         {
             if (String.IsNullOrEmpty(email) || String.IsNullOrEmpty(password))
