@@ -40,7 +40,9 @@ namespace LocoDotnet
 
             return new FormUrlEncodedContent(body);
         }
-
+        /// <summary>
+        /// LOCO 로그인
+        /// </summary>
         public async Task<string> Login(Account account)
         {
             HttpClient client = GetHttpClient(account);
@@ -50,6 +52,12 @@ namespace LocoDotnet
             return await response.Content.ReadAsStringAsync();
         }
 
+        /// <summary>
+        /// LOCO 로그인-인증번호입력
+        /// </summary>
+        /// <remarks>
+        /// 직접호출금지
+        /// </remarks>
         public async Task<string> RequestPasscode(Account account)
         {
             HttpClient client = GetHttpClient(account);
@@ -58,7 +66,9 @@ namespace LocoDotnet
 
             return await response.Content.ReadAsStringAsync();
         }
-
+        /// <summary>
+        /// 기기등록
+        /// </summary>
         public async Task<string> RegisterDevice(Account account, string passcode)
         {
             HttpClient client = GetHttpClient(account);
